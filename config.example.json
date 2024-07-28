@@ -1,0 +1,19 @@
+{
+  "dry_run": false,
+  "databases": [
+    {
+      "name": "planning",
+      "admin": {
+        "username": "digital-land-api",
+        "password": "digital-land-api-pwd"
+      }
+    },
+    {
+      "name": "performance",
+      "admin": {
+        "username": "performance-api",
+        "password": "performance-api-pwd"
+      }
+    }
+  ]
+}

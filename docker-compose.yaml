@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  postgres:
+    container_name: postgres
+    image: arm64v8/postgres:15.3-alpine3.18
+    environment:
+      POSTGRES_PASSWORD: postgres-admin-pwd
+    ports:
+      - "5432:5432"
+  provisioner:
+    container_name: provisioner
+    build:
+      context: .
+    environment:
+      POSTGRES_ADMIN_URL: postgres://postgres:postgres-admin-pwd@postgres:5432/postgres
+#      DB_HOST: postgres
+#      DB_PORT: 5432
+#      DB_ADMIN_USER: postgres
+#      DB_ADMIN_PASS: postgres-admin-pwd
+#      DB_NAME: postgres
+#      DB_USER: outpost_user
+#      DB_PASS: outpost_pwd
+    depends_on:
+      - postgres
+    restart: on-failure
+    volumes:
+      - "./config.example.json:/opt/config.json"
