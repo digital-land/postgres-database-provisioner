@@ -60,12 +60,12 @@ jobs:
         with:
           registry-type: public
 
-      - run: docker pull $DEPLOY_DOCKER_REPOSITORY:main || echo "no current latest image"
+      - run: docker pull $DOCKER_REPO:main || echo "no current latest image"
 
-      - run: docker build -t $DEPLOY_DOCKER_REPOSITORY:${{ steps.vars.outputs.sha_short }} .
+      - run: docker build -t $DOCKER_REPO:${{ steps.vars.outputs.sha_short }} .
 
-      - run: docker tag $DEPLOY_DOCKER_REPOSITORY:${{ steps.vars.outputs.sha_short }} $DEPLOY_DOCKER_REPOSITORY:main
+      - run: docker tag $DOCKER_REPO:${{ steps.vars.outputs.sha_short }} $DOCKER_REPO:main
 
-      - run: docker push $DEPLOY_DOCKER_REPOSITORY:${{ steps.vars.outputs.sha_short }}
+      - run: docker push $DOCKER_REPO:${{ steps.vars.outputs.sha_short }}
 
-      - run: docker push $DEPLOY_DOCKER_REPOSITORY:main
+      - run: docker push $DOCKER_REPO:main
