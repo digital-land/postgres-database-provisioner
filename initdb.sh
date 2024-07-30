@@ -37,7 +37,16 @@ _derive_connection_base_url() {
   fi
 }
 
+_load_config() {
+  if ! [[ $(stat "$CONFIG_FILE_PATH") ]]; then
+    echo "Could not find config file at location $CONFIG_FILE_PATH. Attempting download of config file from S3 bucket."
+    export CONFIG_FILE_PATH=/opt/config/config.json
+    aws s3 cp "$CONFIG_S3_BUCKET_NAME/config.json" "$CONFIG_FILE_PATH"
+  fi
+}
+
 _main() {
+  _load_config
   _derive_connection_base_url
 
   # Create each database listed in config
@@ -50,6 +59,7 @@ _main() {
       pass=$(echo "$database_config_decoded" | jq -r '.admin.password')
       _create_admin_user $db_name $user $pass
   done
-}
+
+}}
 
 _main
