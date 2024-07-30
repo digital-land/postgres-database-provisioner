@@ -11,4 +11,6 @@ COPY initdb.sh /opt/initdb.sh
 
 WORKDIR /opt
 
+ENV CONFIG_FILE_PATH=/opt/config/config.json
+
 ENTRYPOINT /opt/initdb.sh

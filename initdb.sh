@@ -41,7 +41,7 @@ _main() {
   _derive_connection_base_url
 
   # Create each database listed in config
-  for database_config in $(jq -r '.databases[] | @base64' < config.json); do
+  for database_config in $(jq -r '.databases[] | @base64' < "$CONFIG_FILE_PATH"); do
       database_config_decoded=$(echo ${database_config} | base64 -d)
       db_name=$(echo ${database_config_decoded} | jq -r '.name')
       _create_db $db_name
