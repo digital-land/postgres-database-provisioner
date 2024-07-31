@@ -60,6 +60,6 @@ _main() {
       _create_admin_user $db_name $user $pass
   done
 
-}}
+}
 
 _main
