@@ -40,7 +40,7 @@ _load_config() {
   if ! [[ $(stat "$CONFIG_FILE_PATH") ]]; then
     echo "Could not find config file at location $CONFIG_FILE_PATH. Attempting download of config file from S3 bucket."
     export CONFIG_FILE_PATH=/opt/config/config.json
-    aws s3 cp "$CONFIG_S3_BUCKET_NAME/config.json" "$CONFIG_FILE_PATH"
+    aws s3 cp "s3://$CONFIG_S3_BUCKET_NAME/config.json" "$CONFIG_FILE_PATH"
   fi
   export DRY_RUN=$(jq -r '.dry_run' < config.json)
 }
