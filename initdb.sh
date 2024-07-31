@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-dry_run=$(jq -r '.dry_run' < config.json)
 database_name_regex="^((postgres|postgresql)://[^/]+)/(.+)$"
 
 _cmd() {
-  if [[ "${dry_run}" = "true" ]]; then
+  if [[ "${DRY_RUN}" = "true" ]]; then
     echo "Dry run cmd: $*"
   else
     "$@"
@@ -43,6 +42,7 @@ _load_config() {
     export CONFIG_FILE_PATH=/opt/config/config.json
     aws s3 cp "$CONFIG_S3_BUCKET_NAME/config.json" "$CONFIG_FILE_PATH"
   fi
+  export DRY_RUN=$(jq -r '.dry_run' < config.json)
 }
 
 _main() {
