@@ -42,7 +42,7 @@ _load_config() {
     export CONFIG_FILE_PATH=/opt/config/config.json
     aws s3 cp "s3://$CONFIG_S3_BUCKET_NAME/config.json" "$CONFIG_FILE_PATH"
   fi
-  export DRY_RUN=$(jq -r '.dry_run' < config.json)
+  export DRY_RUN=$(jq -r '.dry_run' < "$CONFIG_FILE_PATH")
 }
 
 _main() {
