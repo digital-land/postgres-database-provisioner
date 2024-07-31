@@ -1,6 +1,6 @@
 FROM alpine:3.18.0
 
-RUN apk add bash postgresql-client envsubst jq
+RUN apk add bash postgresql-client envsubst jq aws-cli
 
 # Copy DB init SQL script template
 COPY createdb.template.sql /opt/createdb.template.sql
